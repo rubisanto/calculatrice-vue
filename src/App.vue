@@ -1,24 +1,91 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import myHeader from './components/myHeader.vue'
+import myFooter from './components/myFooter.vue'
+import mySlot from './components/mySlot.vue'
+import myButton from './components/myButton.vue'
+
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <myHeader/>
+  <main>
+    <!-- affiche le résultat dans mySlot -->
+    <mySlot v-text="result"/>
+    <!-- input nombre 1 , au changement faire une méthode "verifNumber"-->
+    <input type="number" v-model="nombre1" placeholder="nombre 1" v-bind:class="nb1Color" @change="verifNumber1"/>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+    <!-- input nombre 2  -->
+    <input type="number" v-model="nombre2" placeholder="nombre 2" v-bind:class="nb2Color" @change="verifNumber2">
 
-  <RouterView />
+    <!-- affiche les boutons -->
+    <myButton @click="addition" text="addition"/>
+    <myButton @click="soustraction" text="soustraction"/>
+    <myButton @click="multiplication" text="multiplication"/>
+    <myButton @click="division" text="division"/>
+
+
+  </main>
+  <myFooter/>
 </template>
+
+<script>
+
+export default {
+  name: 'App',
+  data() {
+    return {
+      nombre1: '',
+      nombre2: '',
+      result: '',
+      nb1Color: 'bordure-rouge',
+      nb2Color: 'bordure-rouge'
+    }
+  },
+  methods: {
+    addition() {
+      this.result= parseInt(this.nombre1) + parseInt(this.nombre2)
+    },
+    soustraction() {
+      this.result= parseInt(this.nombre1) - parseInt(this.nombre2)
+    },
+    multiplication() {
+      this.result= parseInt(this.nombre1) * parseInt(this.nombre2)
+    },
+    division() {
+      this.result= parseInt(this.nombre1) / parseInt(this.nombre2)
+    },
+    verifNumber1() {
+      if (isNaN(this.nombre1)) {
+        // donner la classe bordure-rouge à l'input nombre 1
+        // mettre nb1Color à bordure-rouge
+        this.nb1Color = 'bordure-rouge'
+        
+      }else {
+        // donner la classe bordure-verte à l'input nombre 1
+        // mettre nb1Color à bordure-verte
+        this.nb1Color = 'bordure-verte'
+       
+      }
+    },
+    verifNumber2() {
+      if (isNaN(this.nombre2)) {
+        // donner la classe bordure-rouge à l'input nombre 2
+        this.nb2Color = 'bordure-rouge'
+
+        
+      }else {
+        // donner la classe bordure-verte à l'input nombre 2
+        this.nb2Color = 'bordure-verte'
+        
+      }
+    }
+  }
+}
+
+</script>
 
 <style scoped>
 header {
@@ -56,6 +123,14 @@ nav a:first-of-type {
   border: 0;
 }
 
+.bordure-verte {
+  border: 2px solid green;
+}
+
+.bordure-rouge {
+  border: 2px solid red;
+}
+
 @media (min-width: 1024px) {
   header {
     display: flex;
@@ -82,4 +157,6 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
+
+
 </style>
