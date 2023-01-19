@@ -55,7 +55,10 @@ export default {
       this.result= parseInt(this.nombre1) * parseInt(this.nombre2)
     },
     division() {
-      this.result= parseInt(this.nombre1) / parseInt(this.nombre2)
+      // si nombre 2 différent de 0
+
+
+      if(this.nombre2 != 0) this.result= parseInt(this.nombre1) / parseInt(this.nombre2)
     },
     verifNumber1() {
       if (isNaN(this.nombre1)) {
